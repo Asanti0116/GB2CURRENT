@@ -1,0 +1,46 @@
+body, html { 
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+.bgimg {
+  position: relative;
+  opacity: 0.65;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.bgimg {
+  background-image: url("images/main-img.jpg");
+  height: 100%;
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #ff0000;
+  padding: 15px;
+  font-size: 25px;
+  letter-spacing: 5px;
+}
+
+
+/* Sign-up and Login form style */
+.form_container {
+  margin: 0 auto;
+  max-width: 30rem;
+  border: var(--border);
+  font-size: 1.2rem;
+  background: var(--background-color);
+  box-shadow: 0.75rem 0.75rem 0 -0.2rem var(--accent-colour);
+}
