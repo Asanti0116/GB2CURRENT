@@ -44,5 +44,5 @@ class Notes(db.Model):
   __tablename__ = "notes"
   id = db.Column(db.Integer, primary_key=True)
   Title = db.Column(db.String(100))
-  Note_text = db.Column(db.String(5000))C
+  Note_text = db.Column(db.String(5000))
   Created = db.Column(db.DateTime, default=datetime.now())
