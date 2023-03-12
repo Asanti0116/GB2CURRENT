@@ -1,13 +1,8 @@
-from crtoolkit import DatabaseHandler
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 
 import psycopg2
-
-
-db = DatabaseHandler("gymbuddyDB.db")
-db.connectToDb()
 
 
 def create_app():
