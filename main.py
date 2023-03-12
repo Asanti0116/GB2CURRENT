@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 
-import sqlite3
+import psycopg2
 
 
 db = DatabaseHandler("gymbuddyDB.db")
@@ -24,6 +24,8 @@ app = create_app()
 
 @app.route('/')
 def home():
+  conn = psycopg2.connect("postgresql://postgres:root@localhost:5432/gymbuddy")
+  return 'it works'
   return render_template('index.html')
 
 
