@@ -1,18 +1,15 @@
+import os
+import psycopg2
+
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
-
-import psycopg2
-
-
-def create_app():
-  app = Flask(__name__)
-  app.config['SECRET_KEY'] = "khdkn;wiuhf9283u9012ik1e-ddcdc-cc"
-
-  return app
+from sqlalchemy.exc import IntegrityError
+from forms import UserAddForm, LoginForm, MessageForm, EditProfileForm
+from models import db, connect_db, User, Notes
 
 
-app = create_app()
+CURR_USER_KEY = "curr_user"
 
 ###### VIEWS ROUTES
 
