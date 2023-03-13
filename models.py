@@ -1,7 +1,7 @@
 """SQLAlchemy models for gymbuddy."""
 
-from datetime import datetime
 
+from datetime import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
@@ -41,33 +41,11 @@ class User(db.Model):
 
     __tablename__ = 'user'
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-    )
-
-    name = db.Column(
-        db.Text,
-        nullable=False,
-        unique=False,
-    )
-    
-    email = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
-    username = db.Column(
-        db.Text,
-        nullable=False,
-        unique=True,
-    )
-
-    password = db.Column(
-        db.Text,
-        nullable=False,
-    )
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=False)
+    email = db.Column(db.Text, nullable=False, unique=True)
+    username = db.Column(db.Text, nullable=False, unique=True)
+    password = db.Column(db.Text, nullable=False)
 
     notes = db.relationship('Notes')
 
@@ -116,34 +94,14 @@ def authenticate(cls, username, password):
 class Notes(db.Model):
   __tablename__ = 'notes'
 
-id = db.Column(
-    db.Integer,
-    primary_key=True,
-)
-  
-title = db.Column(
-    db.String(100),
-    nullable=False,
-)
+  id = db.Column(db.Integer, primary_key=True)
+  title = db.Column(db.String(100), nullable=False)
+  text = db.Column(db.String(1000), nullable=False)
+  timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'),
+  nullable=False)
 
-text = db.Column(
-    db.String(1000),
-    nullable=False,
-)
-
-timestamp = db.Column(
-    db.DateTime,
-    nullable=False,
-    default=datetime.utcnow(),
-)
-
-user_id = db.Column(
-    db.Integer,
-    db.ForeignKey('user.id', ondelete='CASCADE'),
-    nullable=False,
-)
-
-user = db.relationship('User')
+  user = db.relationship('User')
 
 
 

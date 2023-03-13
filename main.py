@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm, NotesForm
 from models import db, connect_db, User, Notes
+from sqlalchemy.exc import IntegrityError
 
 
 
@@ -24,7 +25,7 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "kdjnfe98u4ijr349598203jdkshdfskdjvjfncf")
 
-db=SQLAlchemy(app)
+
 connect_db(app)
 
 
