@@ -26,6 +26,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "kdjnfe98u4ijr349598203jdkshdfskdjvjfncf")
 
 
+
 connect_db(app)
 
 
@@ -38,7 +39,6 @@ connect_db(app)
 
 @app.route('/')
 def home():
-  conn = psycopg2.connect("postgresql://postgres:root@localhost:5432/gymbuddy")
   return render_template('index.html')
 
 
