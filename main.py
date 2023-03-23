@@ -6,8 +6,10 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm, NotesForm
-from models import db, connect_db, User, Notes
+from models import db, connect_db
 from sqlalchemy.exc import IntegrityError
+from flask_migrate import Migrate
+
 
 
 
@@ -15,19 +17,15 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-# Get DB_URI from environ variable (useful for production/testing) or,
-# if not set there, use development local db.
-app.config['SQLALCHEMY_DATABASE_URI'] = (
-    os.environ.get('DATABASE_URL', 'postgresql:///gymbuddy'))
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/gymbuddy"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_ECHO'] = True
+app.config['SECRET_KEY'] = "kdjnfe98u4ijr349598203jdkshdfskdjvjfncf"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "kdjnfe98u4ijr349598203jdkshdfskdjvjfncf")
+db.init_app(app)
+migrate = Migrate(app, db)
 
-
-
-connect_db(app)
 
 
 #########################################################################################################

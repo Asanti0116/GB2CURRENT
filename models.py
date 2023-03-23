@@ -1,19 +1,19 @@
 """SQLAlchemy models for gymbuddy."""
 
-
+from flask import Flask
 from datetime import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 bcrypt = Bcrypt()
-db = SQLAlchemy()
-
+db = SQLAlchemy() 
 
 
 class Exercise_of_the_day(db.Model):
   __tablename__ = "exercise_of_the_day"
   id = db.Column(db.Integer, primary_key=True)
-  exercise_id = db.Column(db.Integer)
+  db.ForeignKey('Exercise.id', ondelete="cascade")
 
 
 class Exercise(db.Model):
@@ -21,7 +21,7 @@ class Exercise(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   exercise_name = db.Column(db.TEXT)
   exercise_description = db.Column(db.TEXT)
-  exercise_animation_id = db.Column(db.Integer)
+  db.ForeignKey('Exercise_Animation.id', ondelete="cascade")
 
 
 class Animation(db.Model):
@@ -29,6 +29,7 @@ class Animation(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   animation_name = db.Column(db.TEXT)
   animation_link = db.Column(db.TEXT)
+  db.ForeignKey('Exercise.id', ondelete="cascade"),
 
 
 class Motivation(db.Model):
@@ -36,10 +37,10 @@ class Motivation(db.Model):
   id = db.Column(db.Integer, primary_key=True)
 
 
-class User(db.Model):
+class Users(db.Model):
     """User in the system."""
 
-    __tablename__ = 'user'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False, unique=False)
@@ -47,11 +48,14 @@ class User(db.Model):
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
 
-    notes = db.relationship('Notes')
+    def __init__(self, name, email, username, password):
+        self.name = name
+        self.email = email
+        self.username = username
+        self.password = password
 
-
-def __repr__(self):
-        return f"<User #{self.id}: {self.username}, {self.email}>"
+    def __repr__(self):
+        return f"<User {self.name}>"
 
     
 @classmethod
@@ -62,7 +66,7 @@ def signup(cls, name, username, email, password):
 
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
-        user = User(
+        user = Users(
             name=name,
             username=username,
             email=email,
@@ -104,7 +108,6 @@ class Notes(db.Model):
   user = db.relationship('User')
 
 
-
 def connect_db(app):
     """Connect this database to provided Flask app.
     You should call this in your Flask app.
@@ -112,3 +115,5 @@ def connect_db(app):
 
     db.app = app
     db.init_app(app)
+    db.create_all()
+

@@ -1,16 +1,10 @@
-DROP DATABASE IF EXISTS gym_buddy;
-
-CREATE DATABASE gym_buddy;
-
-\c gym_buddy
-
 CREATE TABLE users
 (
-    id SERIAL PRIMARY KEY,
+   id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL
+    username VARCHAR(15) NOT NULL UNIQUE,
+    password VARCHAR(20) NOT NULL
 );
 
 INSERT INTO users
