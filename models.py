@@ -41,7 +41,7 @@ class Users(db.Model):
 
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=False)
     email = db.Column(db.Text, nullable=False, unique=True)
     username = db.Column(db.Text, nullable=False, unique=True)
@@ -54,7 +54,8 @@ class Users(db.Model):
         self.password = password
 
     def __repr__(self):
-        return f"<User {self.name}>"
+        """Define representation for User instance."""
+        return f"<User id:{self.id} username:{self.username}>"
     
     @classmethod
     def getAll(cls):
@@ -106,10 +107,10 @@ class Notes(db.Model):
   title = db.Column(db.String(100), nullable=False)
   text = db.Column(db.String(1000), nullable=False)
   timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'),
+  users_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'),
   nullable=False)
 
-  user = db.relationship("User")
+  users = db.relationship("Users")
 
 
 def connect_db(app):
