@@ -1,1 +1,1 @@
-export DATABASE_URL="postgresql:///wordcount_dev"
+export DATABASE_URL="postgresql:///gymbuddy"

@@ -6,11 +6,9 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm, NotesForm
-from models import db, connect_db
+from models import db, connect_db, Users, Notes
 from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
-
-
 
 
 CURR_USER_KEY = "curr_user"
@@ -18,21 +16,47 @@ CURR_USER_KEY = "curr_user"
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/gymbuddy"
+# Get DB_URI from environ variable (useful for production/testing) or,
+# if not set there, use development local db.
+
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:Pickles1011!@localhost:5432/gym_buddy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['SECRET_KEY'] = "kdjnfe98u4ijr349598203jdkshdfskdjvjfncf"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-db.init_app(app)
 migrate = Migrate(app, db)
 
 
-
-#########################################################################################################
-
+app.config['SECRET_KEY'] = "shhh-don't-tell-anyone"
 
 
-###### VIEWS ROUTES
+
+
+
+########################################################################################################
+# User signup/login/logout
+
+@app.before_request
+def add_user_to_g():
+    """If we're logged in, add curr user to Flask global."""
+
+    if CURR_USER_KEY in session:
+        g.user = Users.query.get(session[CURR_USER_KEY])
+
+    else:
+        g.user = None
+
+
+def do_login(user):
+    """Log in user."""
+
+    session[CURR_USER_KEY] = user.id
+
+
+def do_logout():
+    """Logout user."""
+
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
 
 
 @app.route('/')
@@ -130,5 +154,5 @@ def logout():
     return redirect(url_for("login"))
 
 
-if __name__ == '__main__':
-  app.run(host='0.0.0.0', debug=True, port=8080)
+# __if __name__ == '__main__':
+  # app.run(host='0.0.0.0', debug=True, port=8080)
