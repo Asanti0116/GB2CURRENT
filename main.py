@@ -10,10 +10,13 @@ from models import db, connect_db, Users, Notes
 from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
 
+CURR_USER_KEY = "curr_user"
+# API_BASE_URL = 
+
 app = Flask(__name__)
 
 
-CURR_USER_KEY = "curr_user"
+
 
 
 # Get DB_URI from environ variable (useful for production/testing) or,
@@ -31,8 +34,9 @@ db.create_all() # <--- create db object.
 
 
 
-########################################################################################################
+##############################################################################
 # User signup/login/logout
+
 
 @app.before_request
 def add_user_to_g():
@@ -57,68 +61,69 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-# *********************************************************************** #
-# Homepage and Handling Signup/Login/Logout
 
-@app.route('/')
-def home():
-  return render_template('index.html', Users=g.user)
-
-
-@app.route('/sign-up', methods=['GET', 'POST'])
+@app.route('/sign-up', methods=["GET", "POST"])
 def signup():
-    """Shows signup page and handles form submission."""
+    """Handle user signup.
+    Create new user and add to DB. Redirect to home page.
+    If form not valid, present form.
+    If there already is a user with that username: flash message
+    and re-present form.
+    """
 
     form = UserAddForm()
 
     if form.validate_on_submit():
         try:
-
-            Users = Users.signup(
-                username=form.username.data,
+            user = Users.signup(
                 name=form.name.data,
+                username=form.username.data,
                 email=form.email.data,
-                password=form.password.data)
+                password=form.password.data,
+              )
             db.session.commit()
 
         except IntegrityError:
-            flash("Username already taken. Please try another.", 'danger')
+            flash("Username already taken", 'danger')
             return render_template('sign-up.html', form=form)
 
         do_login(Users)
 
-        return redirect('/')
+        return redirect("/")
 
     else:
         return render_template('sign-up.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=["GET", "POST"])
 def login():
     """Handle user login."""
 
     form = LoginForm()
 
     if form.validate_on_submit():
-        Users = Users.authenticate(
-            form.username.data, form.password.data)
+        Users = Users.authenticate(form.username.data,
+                                 form.password.data)
 
         if Users:
             do_login(Users)
-            flash(f"Hello, {Users.username}!", 'success')
-            return redirect('/')
+            flash(f"Hello, {Users.username}!", "success")
+            return redirect("/")
 
-        flash("Invalid credentials. Please try again if you have already signed up. Otherwise please click the signup button to join.", 'danger')
+        flash("Invalid credentials.", 'danger')
 
     return render_template('login.html', form=form)
 
 
 @app.route('/logout')
 def logout():
-    """Handle user logout."""
+    """Handle logout of user."""
+
+    # Logs out user - PS
     do_logout()
-    flash("You have been logged out. Log back in below to access all of the features.", 'success')
-    return redirect('/login')
+    flash("Logged Out", 'info')
+
+    return redirect('/login.html')
 
 
 
