@@ -60,8 +60,13 @@ def do_logout():
 
 
 @app.route('/')
-def home():
-  return render_template('index.html')
+def index():
+   conn = psycopg2.connect("postgresql://postgres:Pickles1011!@localhost:5432/gym_buddy")
+   return 'it works'
+
+
+# def home():
+  # return render_template('index.html')
 
 
 @app.route("/user")
