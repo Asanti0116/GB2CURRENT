@@ -81,6 +81,7 @@ def signup():
                 email=form.email.data,
                 password=form.password.data,
               )
+            db.session.add(Users)
             db.session.commit()
 
         except IntegrityError:
@@ -92,6 +93,7 @@ def signup():
         return redirect("/")
 
     else:
+        print("hello")
         return render_template('sign-up.html', form=form)
 
 
