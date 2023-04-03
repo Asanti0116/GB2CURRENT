@@ -42,10 +42,10 @@ class Users(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.Text, nullable=False, unique=False)
-    email = db.Column(db.Text, nullable=False, unique=True)
-    username = db.Column(db.Text, nullable=False, unique=True)
-    password = db.Column(db.Text, nullable=False)
+    name = db.Column(db.String(50), nullable=False, unique=False)
+    email = db.Column(db.String(50), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    password = db.Column(db.String(50), nullable=False)
 
     def __init__(self, name, email, username, password):
         self.name = name

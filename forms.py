@@ -12,10 +12,10 @@ class NotesForm(FlaskForm):
 class UserAddForm(FlaskForm):
     """Form for adding users."""
 
-    name = StringField('Name', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField("Email", validators=[InputRequired()])
-    password = PasswordField("Password", validators=[InputRequired()])
+    name = StringField('name', validators=[DataRequired()])
+    username = StringField('username', validators=[DataRequired()])
+    email = StringField("email", validators=[InputRequired()])
+    password = PasswordField("password", validators=[InputRequired()])
     
 
 
