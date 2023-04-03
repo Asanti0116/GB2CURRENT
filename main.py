@@ -52,7 +52,7 @@ def add_user_to_g():
 def do_login(user):
     """Log in user."""
 
-    session[CURR_USER_KEY] = Users.id
+    session[CURR_USER_KEY] = user.id
 
 
 def do_logout():
@@ -88,7 +88,7 @@ def signup():
             flash("Username already taken", 'danger')
             return render_template('sign-up.html', form=form)
 
-        do_login(Users)
+        do_login(user)
 
         return redirect("/")
 
