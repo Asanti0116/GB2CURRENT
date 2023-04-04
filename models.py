@@ -4,6 +4,7 @@ from flask import Flask
 from datetime import datetime
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 bcrypt = Bcrypt()
 db = SQLAlchemy() 
@@ -36,7 +37,7 @@ class Motivation(db.Model):
   id = db.Column(db.Integer, primary_key=True)
 
 
-class Users(db.Model):
+class Users(db.Model, UserMixin):
     """User in the system."""
 
     __tablename__ = 'users'

@@ -5,6 +5,7 @@ from flask import Flask, redirect, url_for, render_template, request, session, f
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, current_user
 from forms import UserAddForm, LoginForm, NotesForm
 from models import db, connect_db, Users, Notes
 from sqlalchemy.exc import IntegrityError
@@ -33,34 +34,58 @@ app.app_context().push()
 db.create_all() # <--- create db object.
 
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.filter(Users.id == int(user_id)).first()
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    flash('Please login first.', 'danger')
+    
+    return redirect(url_for('login'))
+
+login_manager.login_view = 'login'
+
+
 
 ##############################################################################
-# User signup/login/logout
+
+# @app.before_request
+# def add_user_to_g():
+    # """If we're logged in, add curr user to Flask global."""
+
+    # if CURR_USER_KEY in session:
+        # g.user = Users.query.get(session[CURR_USER_KEY])
+
+    # else:
+        # g.user = None
 
 
-@app.before_request
-def add_user_to_g():
-    """If we're logged in, add curr user to Flask global."""
+# def login_user(user):
+    # """Log in user."""
 
-    if CURR_USER_KEY in session:
-        g.user = Users.query.get(session[CURR_USER_KEY])
-
-    else:
-        g.user = None
+    # session[CURR_USER_KEY] = user.id
 
 
-def do_login(user):
-    """Log in user."""
+# def logout_user():
+    # """Logout user."""
 
-    session[CURR_USER_KEY] = user.id
+    # if CURR_USER_KEY in session:
+        # del session[CURR_USER_KEY]
 
 
-def do_logout():
-    """Logout user."""
+#############################################################################
 
-    if CURR_USER_KEY in session:
-        del session[CURR_USER_KEY]
+@app.route('/', methods=['GET'])
+def landing():
+    """Show homepage."""
+    return render_template('home-anon.html')
 
+
+######## User routes #########################################################
 
 @app.route('/sign-up', methods=["GET", "POST"])
 def signup():
@@ -73,69 +98,70 @@ def signup():
 
     form = UserAddForm()
 
-    if form.validate_on_submit():
-        try:
+    try:
+        if form.validate_on_submit():
             user = Users.signup(
                 name=form.name.data,
                 username=form.username.data,
                 email=form.email.data,
                 password=form.password.data,
               )
-            # db.session.add(Users)
+            
             db.session.commit()
 
-        except IntegrityError:
-            flash("Username already taken", 'danger')
-            return render_template('sign-up.html', form=form)
+            login_user(user)
+            
+            flash('Successfully created your account!','success')
 
-        do_login(user)
+            return render_template('/logged-in.html')
 
-        return redirect("/")
-
-    else:
-        print(form.errors)
-        return render_template('sign-up.html', form=form)
+    except IntegrityError as err:
+        err_info = jsonify(err.orig.args[0]).get_json()
+        
+        if "users_username_key" in err_info:
+            flash('Username already taken.', 'danger')
+        if "users_email_key" in err_info:
+            flash('Email already taken.', 'danger')
+    
+    return render_template('sign-up.html', form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    """Handle user login."""
+    """Handle user login, add to session."""
 
     form = LoginForm()
 
     if form.validate_on_submit():
-        Users = Users.authenticate(form.username.data,
+        user = Users.authenticate(form.username.data,
                                  form.password.data)
 
-        if Users:
-            do_login(Users)
-            flash(f"Hello, {Users.username}!", "success")
-            return redirect("/")
+        if user:
+            login_user(user, remember=True)
+            flash(f"Hello, {Users.username}!", "info")
 
+            return redirect("/logged-in")
+        
         flash("Invalid credentials.", 'danger')
 
-    return render_template('login.html', form=form)
+    return render_template('/login.html', form=form)
+        
+@app.route('/logged-in', methods=['GET'])
+def loggedin():
+    """Show homepage for logged in users."""
+    return render_template('logged-in.html')
 
 
 @app.route('/logout')
 def logout():
-    """Handle logout of user."""
+    """Handle logout of user, remove from session."""
 
     # Logs out user - PS
-    do_logout()
+    logout_user()
+
     flash("Logged Out", 'info')
 
-    return redirect('/login.html')
-
-
-
-
-
-# *********************************************************************** #
-
-@app.route("/")
-def home():
-   return render_template('index.html')
+    return render_template('home-anon.html')
 
 
 
