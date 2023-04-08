@@ -16,6 +16,21 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
+import requests
+import json
+
+url = "https://exercisedb.p.rapidapi.com/exercises"
+
+headers = {
+	"X-RapidAPI-Key": "9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3",
+	"X-RapidAPI-Host": "exercisedb.p.rapidapi.com"
+}
+
+response = requests.request("GET", url, headers=headers)
+
+# print(response.text)
+print(response.json())
+
 
 
 
