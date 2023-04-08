@@ -35,12 +35,17 @@ document.querySelectorAll(".nav-link").forEach((n) =>
 
 /**************FETCHING DATA*************/
 const options = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "9f85b9c537msh6b643c8f3c7baf8p1c6bc6jsn65a5c18831a9",
-    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-  },
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3',
+		'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+	}
 };
+
+fetch('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
 const options1 = {
   method: "GET",
@@ -70,11 +75,11 @@ async function getData() {
   exercises = [...res];
 }
 
-/**************FETCHING DATA COMPLETED*************/
+/*********FETCHING DATA COMPLETED********/
 
-/*****************************************************FUNCTIONS*******************************************************************/
+/**********************************************FUNCTIONS******************************************************/
 
-/**************CREATING INDIVIDUAL CARD OF EXERCISES*************/
+/***CREATING INDIVIDUAL CARD OF EXERCISES***/
 
 function createCard(data) {
   const html = document.createElement("div");
