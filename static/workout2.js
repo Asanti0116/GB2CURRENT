@@ -323,10 +323,7 @@ search.addEventListener("click", function () {
   }
 });
 
-navHome.addEventListener("click", () => {
-  lower.classList.add("hidden");
-  overview.classList.remove("hidden");
-});
+
 
 navExercise.addEventListener("click", () => {
   lower.classList.add("hidden");
