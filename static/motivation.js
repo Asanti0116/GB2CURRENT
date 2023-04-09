@@ -4,6 +4,7 @@ let button = document.querySelector('.btn')
 
 
 
+
 // array of quotes
 const motivationalQuotes = [
   "Believe you can and you're halfway there. -Theodore Roosevelt",
@@ -21,7 +22,7 @@ const motivationalQuotes = [
 // function to create a new Quote
 const createNewQuote = function () {
 	let quoteNumber = Math.floor(Math.random() * 10)
-  		quoteText.innerHTML = motivationalQuotes[quoteNumber]
+  	quoteText.innerHTML = motivationalQuotes[quoteNumber]
 };
 
 
