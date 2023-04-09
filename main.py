@@ -1,6 +1,5 @@
 import os
 
-
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g, jsonify
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
@@ -12,13 +11,14 @@ from sqlalchemy.exc import IntegrityError
 from flask_migrate import Migrate
 
 CURR_USER_KEY = "curr_user"
-# API_BASE_URL = 
+
 
 app = Flask(__name__)
 
 import requests
 import json
 
+# code block for workouts tab ---------------------------------------------------
 url = "https://exercisedb.p.rapidapi.com/exercises"
 
 headers = {
@@ -30,6 +30,25 @@ response = requests.request("GET", url, headers=headers)
 
 # print(response.text)
 print(response.json())
+
+#---------------------------------------------------------------------------------
+
+
+
+# code block for motivation tab---------------------------------------------------
+
+url = "https://quotes15.p.rapidapi.com/quotes/random/"
+
+headers = {
+	"X-RapidAPI-Key": "9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3",
+	"X-RapidAPI-Host": "quotes15.p.rapidapi.com"
+}
+
+response = requests.request("GET", url, headers=headers)
+
+print(response.text)
+
+#---------------------------------------------------------------------------------
 
 
 

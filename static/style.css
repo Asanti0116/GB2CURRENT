@@ -5,6 +5,14 @@ body, html {
   color: #777;
 }
 
+.nav-branding {
+  font-size: 2.5rem;
+  margin-right: auto;
+  margin-left: 1rem;
+  transition: 0.6 ease;
+  color: white;
+}
+
 .bgimg {
   position: relative;
   opacity: 0.65;

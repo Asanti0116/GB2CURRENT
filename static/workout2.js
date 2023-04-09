@@ -21,10 +21,7 @@ let bodypart;
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-menu");
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  navMenu.classList.toggle("active");
-});
+
 
 document.querySelectorAll(".nav-link").forEach((n) =>
   n.addEventListener("click", () => {
@@ -32,6 +29,8 @@ document.querySelectorAll(".nav-link").forEach((n) =>
     navMenu.classList.remove("active");
   })
 );
+/******************************************************* */
+
 
 /**************FETCHING DATA*************/
 const options = {
@@ -42,27 +41,24 @@ const options = {
 	}
 };
 
-fetch('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', options)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
-
 const options1 = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Key": "c9e3832670mshe83d54350da2933p1de219jsn6c2fe36914ea",
-    "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
-  },
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3',
+		'X-RapidAPI-Host': 'youtube-v38.p.rapidapi.com'
+	}
 };
 
+  
 async function getSpecificData(exerciseSearch) {
-  let fetchURL = `https://youtube-v31.p.rapidapi.com/search?q=${exerciseSearch}&part=snippet%2Cid&maxResults=4`;
-  const url = await fetch(fetchURL, options1);
-  const res = await url.json();
-  // console.log(res.items);
-  videos = [...res.items];
-  console.log(videos);
-}
+    let fetchURL = `https://youtube-v38.p.rapidapi.com/search?q=${exerciseSearch}&part=snippet%2Cid&maxResults=4`;
+    const url = await fetch(fetchURL, options1);
+    const res = await url.json();
+    // console.log(res.items);
+    videos = [...res.items];
+    console.log(videos);
+};
+
 
 async function getData() {
   let fetchURL = "https://exercisedb.p.rapidapi.com/exercises";
@@ -73,7 +69,7 @@ async function getData() {
   const url = await fetch(fetchURL, options);
   const res = await url.json();
   exercises = [...res];
-}
+};
 
 /*********FETCHING DATA COMPLETED********/
 
@@ -323,12 +319,6 @@ search.addEventListener("click", function () {
   }
 });
 
-
-
-navExercise.addEventListener("click", () => {
-  lower.classList.add("hidden");
-  overview.classList.remove("hidden");
-});
 
 /******************************EXERCISES BY CATEGORIES **************************/
 
