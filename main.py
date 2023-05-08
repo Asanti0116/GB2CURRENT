@@ -37,16 +37,16 @@ print(response.json())
 
 # code block for motivation tab---------------------------------------------------
 
-url = "https://quotes15.p.rapidapi.com/quotes/random/"
+#url = "https://quotes15.p.rapidapi.com/quotes/random/"
 
-headers = {
-	"X-RapidAPI-Key": "9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3",
-	"X-RapidAPI-Host": "quotes15.p.rapidapi.com"
-}
+#headers = {
+#	"X-RapidAPI-Key": "9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3",
+#	"X-RapidAPI-Host": "quotes15.p.rapidapi.com"
+#}
 
-response = requests.request("GET", url, headers=headers)
+#response = requests.request("GET", url, headers=headers)
 
-print(response.text)
+#print(response.text)
 
 #---------------------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ print(response.text)
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
 
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:Pickles1011!@localhost:5432/gym_buddy'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:Pickles1011!@localhost:5433/gym_buddy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
