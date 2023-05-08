@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, url_for, render_template, request, session, flash, g, jsonify
+from flask import Flask, redirect, url_for, render_template, requests, session, flash, g, jsonify
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -30,28 +30,6 @@ response = requests.request("GET", url, headers=headers)
 
 # print(response.text)
 print(response.json())
-
-#---------------------------------------------------------------------------------
-
-
-
-# code block for motivation tab---------------------------------------------------
-
-#url = "https://quotes15.p.rapidapi.com/quotes/random/"
-
-#headers = {
-#	"X-RapidAPI-Key": "9ded74f4f8msha4284305d05698dp19f784jsn6e8a645eabe3",
-#	"X-RapidAPI-Host": "quotes15.p.rapidapi.com"
-#}
-
-#response = requests.request("GET", url, headers=headers)
-
-#print(response.text)
-
-#---------------------------------------------------------------------------------
-
-
-
 
 
 # Get DB_URI from environ variable (useful for production/testing) or,
