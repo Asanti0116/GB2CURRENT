@@ -1,12 +1,4 @@
-// Variables
-let quoteText = document.querySelector('.quoteText')
-let button = document.querySelector('.btn')
-
-
-
-
-// array of quotes
-const motivationalQuotes = [
+const quotes = [
   "Believe you can and you're halfway there. -Theodore Roosevelt",
   'You are never too old to set another goal or to dream a new dream. -C.S. Lewis',
   'Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle. -Christian D. Larson',
@@ -20,13 +12,10 @@ const motivationalQuotes = [
 ];
 
 // function to create a new Quote
-const createNewQuote = function () {
-	let quoteNumber = Math.floor(Math.random() * 10)
-  	quoteText.innerHTML = motivationalQuotes[quoteNumber]
-};
+function newQuote() {
+	let randomNumber = Math.floor(Math.random() * (quotes.length));
+  document.getElementById('quoteDisplay').innerHTML = quotes[randomNumber];
+}
 
 
-
-// Event Listener
-button.addEventListener('click', createNewQuote)
 

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, url_for, render_template, requests, session, flash, g, jsonify
+from flask import Flask, redirect, url_for, render_template, request, session, flash, g, jsonify
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
