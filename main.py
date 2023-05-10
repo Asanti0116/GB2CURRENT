@@ -51,7 +51,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.filter(Users.id == int(user_id)).first()
+    return Users.query.get(int(user_id))
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -91,7 +91,7 @@ login_manager.login_view = 'login'
 
 #############################################################################
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def landing():
     """Show homepage."""
     return render_template('home-anon.html')
@@ -165,14 +165,10 @@ def loggedin():
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    """Handle logout of user, remove from session."""
-
-    # Logs out user - PS
     logout_user()
-
     flash("Logged Out", 'info')
-
     return render_template('home-anon.html')
 
 

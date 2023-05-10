@@ -6,8 +6,10 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
+
 bcrypt = Bcrypt()
 db = SQLAlchemy() 
+
 
 
 class Exercise_of_the_day(db.Model):
@@ -56,7 +58,7 @@ class Users(db.Model, UserMixin):
 
     def __repr__(self):
         """Define representation for User instance."""
-        return f"<User id:{self.id} username:{self.username}>"
+        return '<User %r>' % self.username
     
     @classmethod
     def getAll(cls):

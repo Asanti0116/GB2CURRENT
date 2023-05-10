@@ -1,26 +1,26 @@
 body { 
-    background-color:#007bff;
+    background-color:#b5b5b5;
 }
-
 #quoteDisplay {
-        display: flex;
-        padding: 0 20px;
-        position: relative;
-        font-family: 'Barlow Condensed', sans-serif;
-        max-width: 620px;
-        margin: 80px auto;
-        align-self: center;
-        color: rgb(0, 0, 0);
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
 }
 
-button {
-    padding: 10px 15px;
-    background-color: rgb(216, 11, 11);
-    color: white;
-    font-size: 17px;
-    border-radius: 15px;
-    position: relative;
+  #quoteDisplay:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
 }
-button:hover {
-    transform: scale(0.9);
+
+  button {
+    color: #fff;
+    background-color: #007bff;
+    margin-left: 45%;
 }
+
