@@ -10,9 +10,6 @@
 ## Prerequisites
 - Python 3.6 or later
 - PostgreSQL
-- Flask
-- HTML
-- CSS
 
 
 ## Built with
@@ -21,6 +18,9 @@
 - wtform - Forms validation and rendering library for Python web development
 - PostgreSQL - Database management system
 - SQLalchemy - Communicate with database using Python
+- HTML
+- CSS
+
 
 ## API Used
 
