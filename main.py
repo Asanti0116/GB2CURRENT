@@ -89,7 +89,7 @@ def do_logout():
     """Logout user."""
 
     if CURR_USER_KEY in session:
-        del session[CURR_USER_KEY]
+        session.clear()
 
 
 
@@ -102,18 +102,28 @@ def do_logout():
 #    return render_template('home-anon.html')
 #
 @app.route('/')
-def homepage():
+def home():
     """Show homepage:
-    - anon users: no links
-    - logged in: all links
-    """
+    - index.html: not logged in
+    -redirect to user's page that shows all links : logged in"""
 
     if g.user:
     
-        return render_template('logged-in.html', notes=notes)
+        return redirect(f"/users/{g.user.id}")
+    
+    return render_template('index.html')
 
-    else:
-        return render_template('home-anon.html')
+
+@app.route('/home')
+def homepage():
+    return render_template('home.html')
+
+
+@ app.route('/about')
+def about():
+    """render about page"""
+    return render_template('about.html')
+
 
 ######## User routes #########################################################
 
@@ -164,26 +174,24 @@ def login():
         if user:
             do_login(user)
             flash(f"Hello, {Users.username}!", "success")
-            return redirect("/logged-in")
+            return redirect("/dashboard")
         
         flash("Invalid credentials.", 'danger')
 
     return render_template('/login.html', form=form)
         
-@app.route('/logged-in', methods=['GET'])
-def loggedin():
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
     """Show homepage for logged in users."""
-    return render_template('logged-in.html')
+    return render_template('dashboard.html')
 
 
 @app.route('/logout')
-def logout():
-    """Handle logout of user."""
+def log_out():
 
-    # Logs out user - PS
     do_logout()
-    flash("Logged Out", 'info')
 
+    flash("See you later!", "success")
     return redirect('/')
     
 

@@ -27,15 +27,26 @@ crossorigin="anonymous"/>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
-            <a class="nav-item nav-link" id="home" href="/logged-in">Home</a>
-            <a class="nav-item nav-link" id="workouts"
-              href="/workouts">Workouts</a>
-            <a class="nav-item nav-link" id="motivation" href="/motivation">Motivation</a>
-            <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            <a class="nav-item nav-link" id="login" href="/login">Login</a>
-            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-            <a class="nav-item nav-link" id="contact">Contact</a>
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            {%if g.user%}
+            <a class="nav-item nav-link" id="about"
+              href="/about">About</a>
+            {%endif%}
+            {% if not g.user %}
+            <div class="d-flex align-items-center">
+              <a class="nav-item nav-link" id="login" href="/login">Login</a>
+              <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+            </div>
+            {% else %}
+            <div class="d-flex align-items-center">
+              <a class="nav-item nav-link" id="dashboard" href="/dashboard">Dashboard</a>
+              <a class="nav-item nav-link" id="workouts" href="/workouts">Workouts</a>
+              <a class="nav-item nav-link" id="motivation" href="/motivation">Motivation</a>
+              <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
+              <a class="px-3 me-2 btn btn-danger" href="/logout" role="button">Log out
+          </a>
+        </div>
+        {% endif %}
         </div>
       </div>
     </nav>
