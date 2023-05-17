@@ -5,7 +5,7 @@
 # Gym Buddy
 "Gym Buddy" is a Flask web application that allows users to sear workouts by targeted muscle groups, With "Gym Buddy," you also get a notes section to jot down what you've done or what you're feeling.
     
-![GBLanding](GBLanding.png)
+![GymBuddy Landing page](static/images/GBLanding.png)
 
 ## Prerequisites
 - Python 3.6 or later
