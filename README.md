@@ -10,6 +10,9 @@
 ## Prerequisites
 - Python 3.6 or later
 - PostgreSQL
+- Flask
+- HTML
+- CSS
 
 
 ## Built with
