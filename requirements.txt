@@ -91,7 +91,6 @@ sympy==1.9
 systemd-python==234
 traitlets==5.1.1
 typing_extensions==4.5.0
-ubuntu-advantage-tools==8001
 ufoLib2==0.13.1
 ufw==0.36.1
 unattended-upgrades==0.1
