@@ -3,9 +3,7 @@
 - - -
 
 # Gym Buddy
-"Gym Buddy" is a Flask web application that allows users to sear workouts by targeted muscle groups, With "Gym Buddy," you also get a notes section to jot down what you've done or what you're feeling. To access GymBuddy go to 
-postgres://gymbuddy_user:bmqoivHDwCZd8X1B3ssEkNhWIqw0ngeL@dpg-chimnpd269v2e2agpakg-a.ohio-postgres.render.com/gymbuddy
-
+"Gym Buddy" is a Flask web application that allows users to sear workouts by targeted muscle groups, With "Gym Buddy," you also get a notes section to jot down what you've done or what you're feeling. 
 
 ![GymBuddy Landing page](static/images/GBLanding.png)
 
