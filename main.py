@@ -36,8 +36,8 @@ print(response.json())
 # Get DB_URI from environ variable (useful for production/testing) or,
 # if not set there, use development local db.
 
-#app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:Pickles1011!@localhost:5433/gym_buddy'
-app.config['SQLALCHEMY_DATABASE_URI']= os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:Pickles1011!@localhost:5433/gym_buddy'
+#app.config['SQLALCHEMY_DATABASE_URI']= os.environ.get("DATABASE_URL")
 # postgres://gb2_user:CAAGEmfZSqDXzmkzLKLSn9Tqn1CHKurY@dpg-chsgv8rhp8u9ullv8j3g-a.oregon-postgres.render.com/gb2
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
