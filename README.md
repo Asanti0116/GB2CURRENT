@@ -35,13 +35,16 @@
     python3 -m venv venv
 ### Activate the virtual environment using  
     
-    source venv/bin/activate
+    source venv/bin/activat
 ### Install the required Python packages using  
     
     pip3 install -r requirements.txt
 ### Create a PostgreSQL database for the project.
     createdb gym_buddy
 ### Run the application
+### cd into api folder  
+    
+    export FLASK_APP=main.py
     flask run
 
 ### Usage
