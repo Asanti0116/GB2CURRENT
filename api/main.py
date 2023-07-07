@@ -19,7 +19,7 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
-# code block for workouts tab ---------------------------------------------------
+# code block for workouts tab --------------------------------------------------
 url = "https://exercisedb.p.rapidapi.com/exercises"
 
 headers = {
